@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char* secret_word = "space";
+char *secret_word = "     ";
 char guess_array[10][6];
 
 void banner(){
@@ -86,6 +86,17 @@ void update_board(char* guess, int num_guess){
 }
 
 void main(){
+
+  unsigned char buffer[5];
+  char word[4] = {"\0"};
+  int deci_word[5] = {99, 111, 97, 115, 116};
+
+  for(int i = 0; i < 5; i++){
+    sprintf(buffer, "%c", deci_word[i]);
+    word[i] = *buffer;
+  }
+  secret_word = word;
+
   int num_guess = 0;
   int gameover = 0;
   banner();
