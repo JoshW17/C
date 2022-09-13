@@ -94,7 +94,7 @@ void main(){
 
   fp = fopen("words.txt", "r");
   srand(time(0));
-  random = rand() % 14855;
+  random = rand() % 2315;
   while(fgets(line, 16, fp) != NULL && num_lines != random){
     num_lines++;
     secret_word = line;
