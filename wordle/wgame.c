@@ -1,9 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 char *secret_word = "     ";
 char guess_array[10][6];
+int random = 0;
+int num_lines = 0;
+char line[16];
+FILE *fp;
 
 void banner(){
   printf("\033[32m ********** **     ** *******   *******   ******** **                       _,.---.---.---.--.._  \033[0m\n");
@@ -87,6 +92,14 @@ void update_board(char* guess, int num_guess){
 
 void main(){
 
+  fp = fopen("words.txt", "r");
+  srand(time(0));
+  random = rand() % 14855;
+  while(fgets(line, 16, fp) != NULL && num_lines != random){
+    num_lines++;
+    secret_word = line;
+  }
+/*
   unsigned char buffer[5];
   char word[4] = {"\0"};
   int deci_word[5] = {99, 111, 97, 115, 116};
@@ -96,7 +109,7 @@ void main(){
     word[i] = *buffer;
   }
   secret_word = word;
-
+*/
   int num_guess = 0;
   int gameover = 0;
   banner();
@@ -108,6 +121,7 @@ void main(){
       gameover = 1;
       if(num_guess == 5 && strncmp(user_guess, secret_word, 5) != 0){
         printf("\n< GAME OVER >");
+        printf("\nThe secret word was: %s", secret_word);
       } else{
         printf("\n< YOU WON! >");
       }
