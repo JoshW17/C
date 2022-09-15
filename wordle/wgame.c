@@ -46,6 +46,7 @@ void board_logic(char* guess, int num_guess, int executed){
         if(secret_word[b] == guess_array[executed][i]){
           printf("\033[33m%c\033[0m", guess_array[executed][i]);
           found = 1;
+          break;
         } else if(found != 1 && b == 4){
           if(guess_array[executed][i] == '\0'){
             printf(" ");
