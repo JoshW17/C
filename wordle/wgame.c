@@ -5,7 +5,6 @@
 
 char *secret_word = "     ";
 char guess_array[10][6];
-int random = 0;
 int num_lines = 0;
 char line[16];
 FILE *fp;
@@ -95,7 +94,7 @@ void main(){
 
   fp = fopen("words.txt", "r");
   srand(time(0));
-  random = rand() % 2315;
+  int random = rand() % 2315;
   while(fgets(line, 16, fp) != NULL && num_lines != random){
     num_lines++;
     secret_word = line;
