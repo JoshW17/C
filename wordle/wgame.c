@@ -90,31 +90,29 @@ void update_board(char* guess, int num_guess){
   }
 }
 
-void main(){
+int main(){
 
   fp = fopen("words.txt", "r");
+  if(!fp){
+    printf("\33[31mERROR: no words.txt file detected\033[0m\n");
+    return 1;
+  }
   srand(time(0));
   int random = rand() % 2315;
   while(fgets(line, 16, fp) != NULL && num_lines != random){
     num_lines++;
     secret_word = line;
   }
-/*
-  unsigned char buffer[5];
-  char word[4] = {"\0"};
-  int deci_word[5] = {99, 111, 97, 115, 116};
-
-  for(int i = 0; i < 5; i++){
-    sprintf(buffer, "%c", deci_word[i]);
-    word[i] = *buffer;
-  }
-  secret_word = word;
-*/
+  fclose(fp);
   int num_guess = 0;
   int gameover = 0;
   banner();
   while(gameover != 1){
     char *user_guess = get_input();
+    while(strlen(user_guess) != strlen(secret_word) - 1){
+      printf("Your input should be five characters long");
+      char *user_guess = get_input();
+    }
     update_board(user_guess, num_guess);
     num_guess++;
     if(num_guess == 5 || strncmp(user_guess, secret_word, 5) == 0){
